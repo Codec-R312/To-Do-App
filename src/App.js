@@ -4,14 +4,17 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
-// This site has 3 pages, all of which are rendered
-// dynamically in the browser (not server rendered).
-//
-// Although the page does not ever refresh, notice how
-// React Router keeps the URL up to date as you navigate
-// through the site. This preserves the browser history,
-// making sure things like the back button and bookmarks
-// work properly.
+const firebaseConfig = {
+  apiKey: 'AIzaSyDQAuAZV-JKsVFs61yP6ckh7fLfDrZaxhM',
+  authDomain: 'to-do-app-rs.firebaseapp.com',
+  projectId: 'to-do-app-rs',
+  storageBucket: 'to-do-app-rs.appspot.com',
+  messagingSenderId: '150456359982',
+  appId: '1:150456359982:web:88542022188aefe58b93bf',
+  measurementId: 'G-BX3LGGCV7P'
+};
+
+const fb = firebase.initializeApp(firebaseConfig);
 
 export default function BasicExample() {
   return (
@@ -86,6 +89,24 @@ function SignUp() {
   return (
     <div>
       <h2>Sign Up</h2>
+      <div className="login-wrapper">
+        <h1>Please Log In</h1>
+        <form>
+          <label>
+            <h3>Username/Email</h3>
+            <input type="text" />
+          </label>
+          <label>
+            <h3>Password</h3>
+            <input type="password" />
+          </label>
+          <div>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+
+
     </div>
   );
 }
