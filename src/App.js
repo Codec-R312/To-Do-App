@@ -4,6 +4,9 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core';
+
 const firebaseConfig = {
   apiKey: 'AIzaSyDQAuAZV-JKsVFs61yP6ckh7fLfDrZaxhM',
   authDomain: 'to-do-app-rs.firebaseapp.com',
@@ -16,6 +19,15 @@ const firebaseConfig = {
 
 const fb = firebase.initializeApp(firebaseConfig);
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '25ch'
+    }
+  }
+}));
+
 export default function BasicExample() {
   return (
     <Router>
@@ -25,7 +37,7 @@ export default function BasicExample() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="/about">Sign Up</Link>
           </li>
           <li>
             <Link to="/dashboard">Dashboard</Link>
@@ -46,7 +58,7 @@ export default function BasicExample() {
             <Home />
           </Route>
           <Route path="/about">
-            <SignUp />
+           <SignUp/>
           </Route>
           <Route path="/dashboard">
             <Dashboard />
@@ -85,13 +97,24 @@ function Home() {
   );
 }
 
-function SignUp() {
+
+
+function Dashboard() {
   return (
     <div>
-      <h2>Sign Up</h2>
-      <div className="login-wrapper">
-        <h1>Please Log In</h1>
-        <form>
+      <h2>Landing Page</h2>
+    </div>
+  );
+}
+
+function SignUp() {
+  
+  return (
+    <div>
+      
+        <h2>Sign Up</h2>
+        
+    
           <label>
             <h3>Username/Email</h3>
             <input type="text" />
@@ -100,21 +123,34 @@ function SignUp() {
             <h3>Password</h3>
             <input type="password" />
           </label>
-          <div>
-            <button type="submit">Submit</button>
-          </div>
-        </form>
-      </div>
 
+          <TextField
+          
+        />
+      
 
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div>
-      <h2>Landing Page</h2>
+        <button
+          onClick={() => {
+            firebase
+              .auth()
+              .createUserWithEmailAndPassword(email, password)
+              .then(userCredential => {
+                // Signed in
+                var user = userCredential.user;
+                console.log(user);
+                // ...
+              })
+              .catch(error => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(error.message);
+                // ..
+              });
+          }}
+        >
+          New User
+        </button>
+      
     </div>
   );
 }
